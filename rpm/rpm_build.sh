@@ -49,8 +49,6 @@ retrieve_svc()
                 if [ ${file##*.}x = "type"x ]; then
                     process_array="$process_array `cat $file_path`"
                 fi
-            else
-                echo "false"
             fi
         done
     fi
