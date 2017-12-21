@@ -19,7 +19,7 @@ start()
         /usr/bin/ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9;
     fi
     
-    nohup ${BASE_DIR}/bin/$1 -f ${BASE_DIR}/config/lct_service_config.properties >> ${BASE_DIR}/log/lowcost-monitor.log 2>&1 &
+    nohup ${BASE_DIR}/bin/$1 -f ${BASE_DIR}/config/service.config >> ${BASE_DIR}/log/lowcost-monitor.log 2>&1 &
 }
 
 for svc in ${LCT_PROCESSES[@]}

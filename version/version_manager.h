@@ -29,7 +29,7 @@ class CVersionParser final
       std::string  Key;
    };
 
-   static constexpr const char* const DEFAULT_VERSION_FILE = "./common/version.h";
+   static constexpr const char* const DEFAULT_VERSION_FILE = "./lct_common/version.h";
 
 public:
    bool init(const std::string& versionFile = DEFAULT_VERSION_FILE);

@@ -31,7 +31,7 @@ start()
         /usr/bin/ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9;
     fi
     
-    nohup ${BASE_DIR}/bin/$1 -f ${BASE_DIR}/config/lct_service_config.properties 2>&1 &
+    nohup ${BASE_DIR}/bin/$1 -f ${BASE_DIR}/config/service.config 2>&1 &
 }
 
 stop()

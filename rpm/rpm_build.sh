@@ -23,11 +23,11 @@ fatal()
 }
 
 ## source environment variables and library functions
-. ${LCT_SVC_PRJ_ROOT}/src/tool/rpm/rpm_build.env
-. ${LCT_SVC_PRJ_ROOT}/src/tool/rpm/rpm_build_lib.sh
-. ${LCT_SVC_PRJ_ROOT}/src/tool/rpm/rpm_build_bin.sh
-. ${LCT_SVC_PRJ_ROOT}/src/tool/rpm/rpm_build_config.sh
-. ${LCT_SVC_PRJ_ROOT}/src/tool/rpm/rpm_build_script.sh
+. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build.env
+. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_lib.sh
+. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_bin.sh
+. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_config.sh
+. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_script.sh
 
 root_disallowed() 
 {
