@@ -5,7 +5,7 @@ prepare_script()
         rm -f ${PROCESS_FILE}
     fi
     
-    cp ${RPMTYPES_FILE} ${PROCESS_FILE}
+    echo $process_array > ${PROCESS_FILE}
     
     if [ -f ${PREBUILD_DIR}/process.sh ]; then
         rm -f ${PREBUILD_DIR}/process.sh

@@ -9,6 +9,7 @@ LCT_SVC_PRJ_ROOT=$CUR_DIR/../../..
 
 declare -a so_array=""
 declare -a so_dir_array=""
+declare -a process_array=""
 
 usage() 
 {
@@ -37,6 +38,23 @@ root_disallowed()
     fi
 }
 
+retrieve_svc()
+{
+    echo $RPM_PROCESS_DIR
+    if [ -d $RPM_PROCESS_DIR ]; then
+        for file in `ls $RPM_PROCESS_DIR*`
+        do
+            file_path=$RPM_PROCESS_DIR/$file
+            if [ -f $file_path ]; then
+                if [ ${file##*.}x = "type"x ]; then
+                    process_array="$process_array `cat $file_path`"
+                fi
+            else
+                echo "false"
+            fi
+        done
+    fi
+}
 
 check_dir() 
 {
@@ -105,7 +123,7 @@ handle_mk_list()
     for mf in ${MAKEFILES_LIST}
     do
         if grep -wq TARGET_TYPE "$mf" && grep -wq app "$mf" ; then
-            handle_mk ${mf} RPMTYPES[@]
+            handle_mk ${mf} process_array[@]
         fi
         
         prepare_config
@@ -147,6 +165,7 @@ prepare_tar()
 }
 
 root_disallowed
+retrieve_svc
 check_dir
 prepare_version
 handle_mk_list

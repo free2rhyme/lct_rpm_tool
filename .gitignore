@@ -1,3 +1,6 @@
+# process filter
+process/*.type
+
 # Prerequisites
 *.d
 
