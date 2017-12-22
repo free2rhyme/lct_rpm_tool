@@ -10,6 +10,9 @@ LCT_SVC_PRJ_ROOT=$CUR_DIR/../../..
 declare -a so_array=""
 declare -a so_dir_array=""
 declare -a process_array=""
+declare rpm_service=""
+
+RPM_PROCESS_DIR=${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/process
 
 usage() 
 {
@@ -23,12 +26,36 @@ fatal()
     exit 1
 }
 
-## source environment variables and library functions
-. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build.env
-. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_lib.sh
-. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_bin.sh
-. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_config.sh
-. ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_script.sh
+retrieve_svc_name()
+{
+    if [ -d $RPM_PROCESS_DIR ]; then
+        for file in `ls $RPM_PROCESS_DIR`
+        do
+            file_path=$RPM_PROCESS_DIR/$file
+            if [ -f $file_path ]; then
+                if [ ${file##*.}x = "name"x ]; then
+                    for  i  in  `cat $file_path`
+                    do
+                        if [ -n "$i" ]; then
+                            rpm_service=$i
+                            break;
+                        fi
+                    done
+                fi
+            fi
+        done
+    fi
+}
+
+export_ctx() 
+{
+    ## source environment variables and library functions
+    . ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build.env
+    . ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_lib.sh
+    . ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_bin.sh
+    . ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_config.sh
+    . ${LCT_SVC_PRJ_ROOT}/src/lct_rpm_tool/rpm/rpm_build_script.sh 
+}
 
 root_disallowed() 
 {
@@ -40,7 +67,6 @@ root_disallowed()
 
 retrieve_svc()
 {
-    echo $RPM_PROCESS_DIR
     if [ -d $RPM_PROCESS_DIR ]; then
         for file in `ls $RPM_PROCESS_DIR*`
         do
@@ -162,6 +188,8 @@ prepare_tar()
     echo "rpm ${tar_name} is successful built"
 }
 
+retrieve_svc_name
+export_ctx
 root_disallowed
 retrieve_svc
 check_dir
