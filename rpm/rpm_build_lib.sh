@@ -46,7 +46,7 @@ handle_so_dir_line()
     declare -a array;
     for so in "${so_libs[@]}"
     do
-        array=`(echo "${so}" | sed 's/\-L$(LCT_SVC_PRJ_ROOT)//g')`
+        array=`(echo "${so}" | sed 's/\-L$(LCT_SVC_SRC_ROOT)/\/src/g')`
     done
     
     for so in "${array[@]}"
@@ -79,7 +79,7 @@ prepare_lib()
     for dir in ${so_dir_array[@]}
     do
         local abs_dir=$LCT_SVC_PRJ_ROOT$dir
-
+        # echo "so_abs_dir is $abs_dir"
         for so in ${so_array[@]}
         do
             local file_path=`(echo "${abs_dir}"/"${so}" | sed 's/ //g')`;

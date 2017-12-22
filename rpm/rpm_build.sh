@@ -122,7 +122,7 @@ handle_mk()
     local rpm_type_name=$2[@]
     
     local rpm_type=("${!rpm_type_name}")
-    
+
     for rt in ${rpm_type[@]}
     do
         if grep -wq TARGET "${mak_file}" && grep -wq $rt "${mak_file}" ; then
@@ -132,7 +132,7 @@ handle_mk()
            
             readarray -t so_dir_lines < <(grep -w SYS_LIB_DIR "${mak_file}" | grep -v '#')
             handle_so_dir_define so_dir_lines[@]
-            #echo $so_dir_array
+            # echo $so_dir_array
             
             if [ 0 -ne ${#so_dir_array[@]} ]; then
                 prepare_lib so_dir_array[@] so_array[@]
@@ -149,9 +149,6 @@ handle_mk_list()
         if grep -wq TARGET_TYPE "$mf" && grep -wq app "$mf" ; then
             handle_mk ${mf} process_array[@]
         fi
-        
-        prepare_config
-        
     done
 }
 
@@ -196,5 +193,6 @@ check_dir
 prepare_version
 handle_mk_list
 prepare_script
+prepare_config
 prepare_tar
 
